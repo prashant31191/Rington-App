@@ -239,7 +239,7 @@ public class RingdroidSelectActivity
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.action_about).setVisible(true);
+        menu.findItem(R.id.action_about).setVisible(false);
         menu.findItem(R.id.action_record).setVisible(true);
         // TODO(nfaralli): do we really need a "Show all audio" item now?
         menu.findItem(R.id.action_show_all_audio).setVisible(true);
