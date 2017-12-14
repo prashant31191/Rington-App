@@ -3,6 +3,7 @@
 
 <resources>
 
+
   <!--
       Base application theme, dependent on API level. This theme is replaced
       by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
@@ -11,8 +12,13 @@
 
   </style>
   <!-- Application theme. -->
-  <style name="AppTheme" parent="AppBaseTheme">
+  <style name="AppTheme" parent="@android:style/Theme.DeviceDefault">
     <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    <!-- Customize your theme here. -->
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+    <item name="android:windowTranslucentNavigation">true</item>
   </style>
   <style name="AudioFileInfoOverlayText">
     <item name="android:paddingLeft">4px</item>
