@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.ringdroid">
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+          package="com.azmp3cutter">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
@@ -10,7 +12,9 @@
 
     <supports-screens android:anyDensity="true" />
 
-    <application android:label="@string/ringdroid_app_name"
+    <application
+        tools:node="replace"
+        android:label="@string/ringdroid_app_name"
                  android:icon="@drawable/ringdroidlogo"
                  android:theme="@style/AppTheme"
                  android:largeHeap="true"
@@ -18,7 +22,7 @@
 
 
         <!-- Main activity that's launched when the user opens Ringdroid. -->
-        <activity android:name="RingdroidSelectActivity"
+        <activity android:name="com.azmp3cutter.RingdroidSelectActivity"
                   android:label="@string/main_activity_label">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,7 +43,7 @@
              Controls viewing the waveform, setting the start and end
              positions, playback, and triggering saving of the output
              file. -->
-        <activity android:name="RingdroidEditActivity"
+        <activity android:name="com.azmp3cutter.RingdroidEditActivity"
                   android:configChanges="orientation|screenSize|keyboardHidden"
                   android:windowSoftInputMode="adjustResize"
                   android:hardwareAccelerated="true">
@@ -50,7 +54,7 @@
         </activity>
 
 	<!-- Activity for choosing a contact to assign a ringtone to. -->
-        <activity android:name="ChooseContactActivity"
+        <activity android:name="com.azmp3cutter.ChooseContactActivity"
                   android:configChanges="orientation|keyboardHidden">
         </activity>
 

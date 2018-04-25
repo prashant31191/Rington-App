@@ -1,4 +1,4 @@
-package com.ringdroid.soundfile;
+package com.azmp3cutter.soundfile;
 
 public class WAVHeader {
     private byte[] mHeader;          // the complete header.

@@ -1,4 +1,4 @@
-package com.ringdroid;
+package com.azmp3cutter;
 
 import java.util.HashMap;
 

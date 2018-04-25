@@ -1,4 +1,4 @@
-package com.ringdroid;
+package com.azmp3cutter;
 
 import java.nio.ShortBuffer;
 
@@ -6,7 +6,7 @@ import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
 
-import com.ringdroid.soundfile.SoundFile;
+import com.azmp3cutter.soundfile.SoundFile;
 
 class SamplePlayer {
     public interface OnCompletionListener {

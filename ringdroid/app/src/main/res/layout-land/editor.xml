@@ -9,13 +9,20 @@
      android:layout_width="wrap_content" 
      android:layout_height="0px"
      android:layout_weight="1">
+        <RelativeLayout
+            android:id="@+id/rlAds"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="80dp"
+            android:gravity="center"
+            ></RelativeLayout>
 
-      <com.ringdroid.WaveformView
+      <com.azmp3cutter.WaveformView
        android:id="@+id/waveform"
        android:layout_width="fill_parent"
        android:layout_height="fill_parent" />
 
-      <com.ringdroid.MarkerView
+      <com.azmp3cutter.MarkerView
        android:id="@+id/startmarker"
        android:nextFocusDown="@+id/endmarker"
        android:layout_width="wrap_content"
@@ -23,7 +30,7 @@
        android:src="@drawable/marker_left"
        android:contentDescription="@string/start_marker" />
 
-      <com.ringdroid.MarkerView
+      <com.azmp3cutter.MarkerView
        android:id="@+id/endmarker"
        android:nextFocusUp="@+id/startmarker"
        android:nextFocusDown="@+id/info"

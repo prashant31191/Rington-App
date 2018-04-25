@@ -1,4 +1,4 @@
-package com.ringdroid.soundfile;
+package com.azmp3cutter.soundfile;
 
 class Atom {  // note: latest versions of spec simply call it 'box' instead of 'atom'.
     private int mSize;  // includes atom header (8 bytes)

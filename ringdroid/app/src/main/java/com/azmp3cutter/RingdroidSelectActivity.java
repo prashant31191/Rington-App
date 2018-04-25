@@ -1,5 +1,5 @@
 
-package com.ringdroid;
+package com.azmp3cutter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
-import com.ringdroid.soundfile.SoundFile;
+import com.azmp3cutter.soundfile.SoundFile;
 
 public class RingdroidSelectActivity
     extends ListActivity
@@ -373,8 +373,8 @@ public class RingdroidSelectActivity
             //Go to the choose contact activity
             Intent intent = new Intent(Intent.ACTION_EDIT, getUri());
             intent.setClassName(
-                    "com.ringdroid",
-            "com.ringdroid.ChooseContactActivity");
+                    "com.azmp3cutter",
+            "com.azmp3cutter.ChooseContactActivity");
             startActivityForResult(intent, REQUEST_CODE_CHOOSE_CONTACT);
         } catch (Exception e) {
             Log.e("Ringdroid", "Couldn't open Choose Contact window");
@@ -479,7 +479,7 @@ public class RingdroidSelectActivity
         try {
             Intent intent = new Intent(Intent.ACTION_EDIT, Uri.parse("record"));
             intent.putExtra("was_get_content_intent", mWasGetContentIntent);
-            intent.setClassName( "com.ringdroid", "com.ringdroid.RingdroidEditActivity");
+            intent.setClassName( "com.azmp3cutter", "com.azmp3cutter.RingdroidEditActivity");
             startActivityForResult(intent, REQUEST_CODE_EDIT);
         } catch (Exception e) {
             Log.e("Ringdroid", "Couldn't start editor");
@@ -493,7 +493,7 @@ public class RingdroidSelectActivity
         try {
             Intent intent = new Intent(Intent.ACTION_EDIT, Uri.parse(filename));
             intent.putExtra("was_get_content_intent", mWasGetContentIntent);
-            intent.setClassName( "com.ringdroid", "com.ringdroid.RingdroidEditActivity");
+            intent.setClassName( "com.azmp3cutter", "com.azmp3cutter.RingdroidEditActivity");
             startActivityForResult(intent, REQUEST_CODE_EDIT);
         } catch (Exception e) {
             Log.e("Ringdroid", "Couldn't start editor");

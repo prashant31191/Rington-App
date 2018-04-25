@@ -1,4 +1,4 @@
-package com.ringdroid;
+package com.azmp3cutter;
 
 import android.content.Context;
 import android.graphics.Canvas;

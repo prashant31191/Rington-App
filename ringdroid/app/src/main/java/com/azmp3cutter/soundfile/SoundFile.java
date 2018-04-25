@@ -1,4 +1,4 @@
-package com.ringdroid.soundfile;
+package com.azmp3cutter.soundfile;
 
 import java.io.BufferedWriter;
 import java.io.File;

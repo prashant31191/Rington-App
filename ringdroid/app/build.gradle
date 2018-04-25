@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.0"
 
     defaultConfig {
-        applicationId "com.ringdroid"
+        applicationId "com.azmp3cutter"
         minSdkVersion 16
         targetSdkVersion 21
         versionCode 1
@@ -18,4 +18,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+}
+
+dependencies {
+    compile 'com.prashant31191.azads:azads:1.0.0'
 }

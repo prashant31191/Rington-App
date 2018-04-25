@@ -1,4 +1,4 @@
-package com.ringdroid;
+package com.azmp3cutter;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -12,7 +12,7 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 
-import com.ringdroid.soundfile.SoundFile;
+import com.azmp3cutter.soundfile.SoundFile;
 
 public class WaveformView extends View {
     public interface WaveformListener {

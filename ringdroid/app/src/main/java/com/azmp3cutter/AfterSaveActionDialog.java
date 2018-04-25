@@ -1,4 +1,4 @@
-package com.ringdroid;
+package com.azmp3cutter;
 
 import android.app.Dialog;
 import android.content.Context;

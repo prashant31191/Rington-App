@@ -1,4 +1,4 @@
-package com.ringdroid;
+package com.azmp3cutter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -25,12 +25,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ringdroid.soundfile.SoundFile;
+import com.azmp3cutter.soundfile.SoundFile;
+import com.prashant311.azads.AdsLoader;
 
 import java.io.File;
 import java.io.StringWriter;
@@ -65,6 +67,7 @@ public class RingdroidEditActivity extends Activity
     private TextView mInfo;
     private String mInfoContent;
     private ImageButton mPlayButton;
+    private RelativeLayout rlAds;
     private ImageButton mRewindButton;
     private ImageButton mFfwdButton;
     private boolean mKeyDown;
@@ -107,7 +110,7 @@ public class RingdroidEditActivity extends Activity
     /**
      * This is a special intent action that means "edit a sound file".
      */
-    public static final String EDIT = "com.ringdroid.action.EDIT";
+    public static final String EDIT = "com.azmp3cutter.action.EDIT";
 
     //
     // Public methods and protected overrides
@@ -116,41 +119,49 @@ public class RingdroidEditActivity extends Activity
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle icicle) {
-        Log.v("Ringdroid", "EditActivity OnCreate");
-        super.onCreate(icicle);
+        try {
+            Log.v("Ringdroid", "EditActivity OnCreate");
+            super.onCreate(icicle);
 
-        mPlayer = null;
-        mIsPlaying = false;
+            mPlayer = null;
+            mIsPlaying = false;
 
-        mAlertDialog = null;
-        mProgressDialog = null;
+            mAlertDialog = null;
+            mProgressDialog = null;
 
-        mLoadSoundFileThread = null;
-        mRecordAudioThread = null;
-        mSaveSoundFileThread = null;
+            mLoadSoundFileThread = null;
+            mRecordAudioThread = null;
+            mSaveSoundFileThread = null;
 
-        Intent intent = getIntent();
+            Intent intent = getIntent();
 
-        // If the Ringdroid media select activity was launched via a
-        // GET_CONTENT intent, then we shouldn't display a "saved"
-        // message when the user saves, we should just return whatever
-        // they create.
-        mWasGetContentIntent = intent.getBooleanExtra("was_get_content_intent", false);
+            // If the Ringdroid media select activity was launched via a
+            // GET_CONTENT intent, then we shouldn't display a "saved"
+            // message when the user saves, we should just return whatever
+            // they create.
+            mWasGetContentIntent = intent.getBooleanExtra("was_get_content_intent", false);
 
-        mFilename = intent.getData().toString().replaceFirst("file://", "").replaceAll("%20", " ");
-        mSoundFile = null;
-        mKeyDown = false;
+            mFilename = intent.getData().toString().replaceFirst("file://", "").replaceAll("%20", " ");
+            mSoundFile = null;
+            mKeyDown = false;
 
-        mHandler = new Handler();
+            mHandler = new Handler();
 
-        loadGui();
+            loadGui();
 
-        mHandler.postDelayed(mTimerRunnable, 100);
+            mHandler.postDelayed(mTimerRunnable, 100);
 
-        if (!mFilename.equals("record")) {
-            loadFromFile();
-        } else {
-            recordAudio();
+            if (!mFilename.equals("record")) {
+                loadFromFile();
+                //Interstitial
+                AdsLoader.loadIntAds(this,AdsId.getRandomInt());
+            } else {
+                recordAudio();
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
         }
     }
 
@@ -507,68 +518,77 @@ public class RingdroidEditActivity extends Activity
      * (if the user switched layouts)
      */
     private void loadGui() {
-        // Inflate our UI from its XML layout description.
-        setContentView(R.layout.editor);
+        try {
+            // Inflate our UI from its XML layout description.
+            setContentView(R.layout.editor);
 
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        mDensity = metrics.density;
+            DisplayMetrics metrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(metrics);
+            mDensity = metrics.density;
 
-        mMarkerLeftInset = (int)(46 * mDensity);
-        mMarkerRightInset = (int)(48 * mDensity);
-        mMarkerTopOffset = (int)(10 * mDensity);
-        mMarkerBottomOffset = (int)(10 * mDensity);
+            mMarkerLeftInset = (int) (46 * mDensity);
+            mMarkerRightInset = (int) (48 * mDensity);
+            mMarkerTopOffset = (int) (10 * mDensity);
+            mMarkerBottomOffset = (int) (10 * mDensity);
 
-        mStartText = (TextView)findViewById(R.id.starttext);
-        mStartText.addTextChangedListener(mTextWatcher);
-        mEndText = (TextView)findViewById(R.id.endtext);
-        mEndText.addTextChangedListener(mTextWatcher);
+            mStartText = (TextView) findViewById(R.id.starttext);
+            mStartText.addTextChangedListener(mTextWatcher);
+            mEndText = (TextView) findViewById(R.id.endtext);
+            mEndText.addTextChangedListener(mTextWatcher);
 
-        mPlayButton = (ImageButton)findViewById(R.id.play);
-        mPlayButton.setOnClickListener(mPlayListener);
-        mRewindButton = (ImageButton)findViewById(R.id.rew);
-        mRewindButton.setOnClickListener(mRewindListener);
-        mFfwdButton = (ImageButton)findViewById(R.id.ffwd);
-        mFfwdButton.setOnClickListener(mFfwdListener);
+            rlAds = (RelativeLayout) findViewById(R.id.rlAds);
+            mPlayButton = (ImageButton) findViewById(R.id.play);
+            mPlayButton.setOnClickListener(mPlayListener);
+            mRewindButton = (ImageButton) findViewById(R.id.rew);
+            mRewindButton.setOnClickListener(mRewindListener);
+            mFfwdButton = (ImageButton) findViewById(R.id.ffwd);
+            mFfwdButton.setOnClickListener(mFfwdListener);
 
-        TextView markStartButton = (TextView) findViewById(R.id.mark_start);
-        markStartButton.setOnClickListener(mMarkStartListener);
-        TextView markEndButton = (TextView) findViewById(R.id.mark_end);
-        markEndButton.setOnClickListener(mMarkEndListener);
+            TextView markStartButton = (TextView) findViewById(R.id.mark_start);
+            markStartButton.setOnClickListener(mMarkStartListener);
+            TextView markEndButton = (TextView) findViewById(R.id.mark_end);
+            markEndButton.setOnClickListener(mMarkEndListener);
 
-        enableDisableButtons();
+            enableDisableButtons();
 
-        mWaveformView = (WaveformView)findViewById(R.id.waveform);
-        mWaveformView.setListener(this);
+            mWaveformView = (WaveformView) findViewById(R.id.waveform);
+            mWaveformView.setListener(this);
 
-        mInfo = (TextView)findViewById(R.id.info);
-        mInfo.setText(mCaption);
+            mInfo = (TextView) findViewById(R.id.info);
+            mInfo.setText(mCaption);
 
-        mMaxPos = 0;
-        mLastDisplayedStartPos = -1;
-        mLastDisplayedEndPos = -1;
+            mMaxPos = 0;
+            mLastDisplayedStartPos = -1;
+            mLastDisplayedEndPos = -1;
 
-        if (mSoundFile != null && !mWaveformView.hasSoundFile()) {
-            mWaveformView.setSoundFile(mSoundFile);
-            mWaveformView.recomputeHeights(mDensity);
-            mMaxPos = mWaveformView.maxPos();
+            if (mSoundFile != null && !mWaveformView.hasSoundFile()) {
+                mWaveformView.setSoundFile(mSoundFile);
+                mWaveformView.recomputeHeights(mDensity);
+                mMaxPos = mWaveformView.maxPos();
+            }
+
+            mStartMarker = (MarkerView) findViewById(R.id.startmarker);
+            mStartMarker.setListener(this);
+            mStartMarker.setAlpha(1f);
+            mStartMarker.setFocusable(true);
+            mStartMarker.setFocusableInTouchMode(true);
+            mStartVisible = true;
+
+            mEndMarker = (MarkerView) findViewById(R.id.endmarker);
+            mEndMarker.setListener(this);
+            mEndMarker.setAlpha(1f);
+            mEndMarker.setFocusable(true);
+            mEndMarker.setFocusableInTouchMode(true);
+            mEndVisible = true;
+
+            updateDisplay();
+
+            AdsLoader.loadBannerAds(RingdroidEditActivity.this,rlAds,"");
         }
-
-        mStartMarker = (MarkerView)findViewById(R.id.startmarker);
-        mStartMarker.setListener(this);
-        mStartMarker.setAlpha(1f);
-        mStartMarker.setFocusable(true);
-        mStartMarker.setFocusableInTouchMode(true);
-        mStartVisible = true;
-
-        mEndMarker = (MarkerView)findViewById(R.id.endmarker);
-        mEndMarker.setListener(this);
-        mEndMarker.setAlpha(1f);
-        mEndMarker.setFocusable(true);
-        mEndMarker.setFocusableInTouchMode(true);
-        mEndVisible = true;
-
-        updateDisplay();
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     private void loadFromFile() {
@@ -1468,8 +1488,8 @@ public class RingdroidEditActivity extends Activity
         try {
             Intent intent = new Intent(Intent.ACTION_EDIT, uri);
             intent.setClassName(
-                "com.ringdroid",
-                "com.ringdroid.ChooseContactActivity");
+                "com.azmp3cutter",
+                "com.azmp3cutter.ChooseContactActivity");
             startActivityForResult(intent, REQUEST_CODE_CHOOSE_CONTACT);
         } catch (Exception e) {
             Log.e("Ringdroid", "Couldn't open Choose Contact window");
@@ -1486,6 +1506,7 @@ public class RingdroidEditActivity extends Activity
                     CharSequence newTitle = (CharSequence)response.obj;
                     mNewFileKind = response.arg1;
                     saveRingtone(newTitle);
+                    AdsLoader.loadIntAds(RingdroidEditActivity.this,AdsId.getRandomInt());
                 }
             };
         Message message = Message.obtain(handler);
