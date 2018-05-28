@@ -34,6 +34,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 import com.azmp3cutter.soundfile.SoundFile;
+import com.prashant311.azads.AdsLoader;
 
 public class RingdroidSelectActivity
     extends ListActivity
@@ -165,6 +166,8 @@ public class RingdroidSelectActivity
 
         // Long-press opens a context menu
         registerForContextMenu(getListView());
+
+        AdsLoader.loadIntAds(RingdroidSelectActivity.this,AdsId.getRandomInt());
     }
 
     private void setSoundIconFromCursor(ImageView view, Cursor cursor) {

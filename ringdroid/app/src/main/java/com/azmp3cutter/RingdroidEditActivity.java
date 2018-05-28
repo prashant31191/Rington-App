@@ -583,7 +583,7 @@ public class RingdroidEditActivity extends Activity
 
             updateDisplay();
 
-            AdsLoader.loadBannerAds(RingdroidEditActivity.this,rlAds,"");
+            AdsLoader.loadBannerAds(RingdroidEditActivity.this,rlAds,AdsId.getRandomBanner());
         }
         catch (Exception e)
         {
