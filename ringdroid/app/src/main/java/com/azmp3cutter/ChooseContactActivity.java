@@ -7,6 +7,7 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract.Contacts;
@@ -24,8 +25,7 @@ import android.widget.Toast;
  * After a ringtone has been saved, this activity lets you pick a contact
  * and assign the ringtone to that contact.
  */
-public class ChooseContactActivity
-    extends ListActivity
+public class ChooseContactActivity extends ListActivity
     implements TextWatcher, LoaderManager.LoaderCallbacks<Cursor>
 {
     private TextView mFilter;
@@ -61,7 +61,8 @@ public class ChooseContactActivity
                 new String[] {
                     Contacts.CUSTOM_RINGTONE,
                     Contacts.STARRED,
-                    Contacts.DISPLAY_NAME },
+                    Contacts.DISPLAY_NAME
+                },
                 // To widget ids in the row layout...
                 new int[] {
                     R.id.row_ringtone,
@@ -92,6 +93,13 @@ public class ChooseContactActivity
                             return true;
                         }
 
+                        if (view.getId() == R.id.row_display_name) {
+                            TextView tvAlbum =  ((TextView) view);
+                            tvAlbum.setSelected(true);
+                            tvAlbum.setTypeface(Typeface.createFromAsset(ChooseContactActivity.this.getAssets(), "Baloo-Regular.ttf"));
+
+                        }
+
                         return false;
                     }
                 });
@@ -109,6 +117,7 @@ public class ChooseContactActivity
                     }
                 }
             );
+            getListView().setDividerHeight(0);
 
             getLoaderManager().initLoader(0,  null, this);
 
@@ -121,6 +130,8 @@ public class ChooseContactActivity
         if (mFilter != null) {
             mFilter.addTextChangedListener(this);
         }
+
+        mFilter.setTypeface(Typeface.createFromAsset(ChooseContactActivity.this.getAssets(), "Baloo-Regular.ttf"));
     }
 
     private void assignRingtoneToContact() {

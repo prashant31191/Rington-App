@@ -5,6 +5,7 @@
   <color name="colorPrimary">#c30b0b</color>
   <color name="colorPrimaryDark">#880707</color>
   <color name="colorAccent">#cf3b3b </color>
+  <color name="white">#ffffff</color>
 
 
   <color name="waveform_selected">#d00c79</color>

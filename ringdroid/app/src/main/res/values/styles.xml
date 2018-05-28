@@ -31,7 +31,7 @@
   </style>
 
   <style name="ChooseContactBackground">
-    <item name="android:background">#cc9933</item>
+    <item name="android:background">#efefef</item>
   </style>
 
   <style name="VerticalDividerForList">
