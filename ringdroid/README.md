@@ -1,5 +1,7 @@
 ![](https://github.com/google/ringdroid/wiki/images/header.png)
 
+adb start-server adb tcpip 5555 adb connect 192.168.1.100:5555
+
 **Ringdroid is now on GitHub!**
 
 **22 June 2015: Ringdroid 2.7.3 contains fixes for several bugs reported by users of Ringdroid 2.7.2, and it uses WAV as a fall-back audio format for saving ringtones in case the default AAC (.m4a) encoding fails.**

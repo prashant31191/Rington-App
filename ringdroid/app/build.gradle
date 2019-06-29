@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.0"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
         applicationId "com.azmp3cutter"
         minSdkVersion 16
-        targetSdkVersion 21
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
     }
@@ -21,5 +21,5 @@ android {
 }
 
 dependencies {
-    compile 'com.prashant31191.azads:azads:1.0.0'
+    implementation 'com.prashant31191.azads:azads:1.0.0'
 }

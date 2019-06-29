@@ -64,3 +64,7 @@ http://developer.android.com/tools/publishing/app-signing.html#release-mode
 
 # Initial key generated with:
 # keytool -genkey -keystore ringdroid.keystore -alias ringdroid -validity 10000
+
+adb start-server
+adb tcpip 5555
+adb connect 192.168.1.100:5555
